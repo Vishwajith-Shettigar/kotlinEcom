@@ -28,6 +28,11 @@ sealed class Resource<T>(
 
 
     }
+    class Notspecified<T>:Resource<T>()
+    {
+
+
+    }
 
 
 }

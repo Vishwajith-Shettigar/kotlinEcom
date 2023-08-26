@@ -52,7 +52,7 @@ android:src="@drawable/blury_background"
             android:textStyle="bold"
             />
         <TextView
-            android:id="@+id/donthaveac"
+            android:id="@+id/haveac"
             style="@style/h2"
 
             app:layout_constraintStart_toStartOf="@id/leftguildline"
@@ -77,7 +77,7 @@ android:src="@drawable/blury_background"
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="@id/leftguildline"
 app:layout_constraintEnd_toEndOf="@id/rightguildline"
-            app:layout_constraintTop_toBottomOf="@+id/donthaveac"
+            app:layout_constraintTop_toBottomOf="@+id/haveac"
 
          android:hint="Email "
             android:layout_marginTop="50dp"
@@ -122,7 +122,7 @@ android:textColor="@color/black"
             />
 
 
-        <androidx.appcompat.widget.AppCompatButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/loginbtn"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -134,6 +134,7 @@ android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/forgotpass"
             android:background="@drawable/btnback"
             android:textColor="@color/white"
+            app:spinning_bar_color="@color/white"
 
             />
 
