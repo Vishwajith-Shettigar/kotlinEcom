@@ -16,6 +16,8 @@ import com.example.ecomapp.Util.RegisterValidation
 import com.example.ecomapp.Util.Resource
 import com.example.ecomapp.Viewmodel.LoginViewmodel
 import com.example.ecomapp.databinding.FragmentLoginBinding
+import com.example.ecomapp.dialog.setBottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -52,6 +54,44 @@ private val viewmodel by viewModels<LoginViewmodel>()
                 viewmodel.login(email,password)
 
             }
+
+            forgotpass.setOnClickListener{
+
+                    setBottomSheetDialog{email->
+
+ viewmodel.resetPassword(email)
+
+                    }
+            }
+        }
+
+
+        lifecycleScope.launchWhenStarted {
+            viewmodel.resetPassword.collect {
+
+                when (it) {
+
+                    is Resource.Loading -> {
+
+
+
+                    }
+                    is Resource.Success -> {
+Snackbar.make(requireView(),"Reset link sent to your email",Snackbar.LENGTH_SHORT).show()
+
+
+                    }
+                    is Resource.Error -> {
+                        Snackbar.make(requireView(),it.message.toString(),Snackbar.LENGTH_SHORT).show()
+
+                    }
+                    else -> {
+                        Unit
+                    }
+
+                }
+            }
+
         }
 
 lifecycleScope.launchWhenStarted {

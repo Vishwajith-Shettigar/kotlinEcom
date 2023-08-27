@@ -25,6 +25,10 @@ class LoginViewmodel @Inject constructor(
 
     private  val _login = MutableSharedFlow<Resource<FirebaseUser>>()
     val login=_login.asSharedFlow()
+
+    private  val _resetpassword = MutableSharedFlow<Resource<String>>()
+    val resetPassword=_resetpassword.asSharedFlow()
+
     private val _validationLogin= Channel<RegisterFieldState>();
     val validationlogin =_validationLogin.receiveAsFlow()
 
@@ -78,5 +82,30 @@ class LoginViewmodel @Inject constructor(
                 passval is RegisterValidation.Success
 
         return bothVali
+    }
+
+    fun resetPassword(email: String){
+viewModelScope.launch {
+
+    _resetpassword.emit(Resource.Loading())
+}
+    firebaseAuth.sendPasswordResetEmail(email)
+        .addOnSuccessListener {
+            viewModelScope.launch {
+
+                _resetpassword.emit(Resource.Success(email))
+            }
+
+
+        }
+        .addOnFailureListener{
+
+            viewModelScope.launch {
+
+                _resetpassword.emit(Resource.Error(it.message.toString()))
+            }
+
+}
+
     }
 }
