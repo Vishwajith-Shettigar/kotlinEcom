@@ -27,6 +27,8 @@ fun Fragment.setBottomSheetDialog(
     val resetbtn=layoutBottomsheet.findViewById<Button>(R.id.resetbtn)
     val cancelbtn=layoutBottomsheet.findViewById<Button>(R.id.cancelbtn)
 
+
+
     resetbtn.setOnClickListener{
 
         val email=Email.text.toString().trim()

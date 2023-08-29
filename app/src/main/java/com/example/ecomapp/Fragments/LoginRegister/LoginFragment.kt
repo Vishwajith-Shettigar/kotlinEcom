@@ -2,9 +2,13 @@ package com.example.ecomapp.Fragments.LoginRegister
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Contacts.Intents.UI
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
@@ -153,6 +158,28 @@ lifecycleScope.launchWhenStarted {
 
             }
         }
+
+
+        lifecycleScope.launchWhenStarted {
+
+            viewmodel.validationResetPassword.collect{validation->
+
+
+                if( validation.email is RegisterValidation.Failure ){
+
+
+
+
+
+
+
+
+
+                }
+            }
         }
+
+        }
+
     }
 

@@ -1,5 +1,7 @@
 package com.example.ecomapp.Viewmodel
 
+import android.util.Log
+import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecomapp.Data.User
@@ -31,6 +33,12 @@ class LoginViewmodel @Inject constructor(
 
     private val _validationLogin= Channel<RegisterFieldState>();
     val validationlogin =_validationLogin.receiveAsFlow()
+
+
+    private val _validationResetPassword= Channel<RegisterFieldState>();
+    val validationResetPassword =_validationResetPassword.receiveAsFlow()
+
+
 
     fun login(email:String,password:String) {
 
@@ -69,6 +77,7 @@ class LoginViewmodel @Inject constructor(
 
             )
             runBlocking {
+
                 _validationLogin.send(registerfieldstate);
             }
 
@@ -83,29 +92,50 @@ class LoginViewmodel @Inject constructor(
 
         return bothVali
     }
+    private fun checkValidationEmail(email:String): Boolean {
+        val emailval = validateEmail(email);
+
+
+        return emailval  is RegisterValidation.Success
+    }
 
     fun resetPassword(email: String){
-viewModelScope.launch {
 
-    _resetpassword.emit(Resource.Loading())
-}
-    firebaseAuth.sendPasswordResetEmail(email)
-        .addOnSuccessListener {
-            viewModelScope.launch {
+      if( checkValidationEmail(email)) {
+          viewModelScope.launch {
 
-                _resetpassword.emit(Resource.Success(email))
-            }
+              _resetpassword.emit(Resource.Loading())
+          }
+          firebaseAuth.sendPasswordResetEmail(email)
+              .addOnSuccessListener {
+                  viewModelScope.launch {
+
+                      _resetpassword.emit(Resource.Success(email))
+                  }
 
 
-        }
-        .addOnFailureListener{
+              }
+              .addOnFailureListener {
 
-            viewModelScope.launch {
+                  viewModelScope.launch {
 
-                _resetpassword.emit(Resource.Error(it.message.toString()))
-            }
+                      _resetpassword.emit(Resource.Error(it.message.toString()))
+                  }
 
-}
+              }
+      }
+        else{
+
+          val registerfieldstate=RegisterFieldState(
+              validateEmail(email),
+              validatePassword(" ")
+          )
+
+          runBlocking {
+
+              _validationResetPassword.send(registerfieldstate);
+          }
+      }
 
     }
 }
