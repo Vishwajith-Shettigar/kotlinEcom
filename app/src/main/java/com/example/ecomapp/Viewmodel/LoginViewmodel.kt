@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewmodel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth,
+    public val firebaseAuth: FirebaseAuth,
 
 
 ):ViewModel() {
