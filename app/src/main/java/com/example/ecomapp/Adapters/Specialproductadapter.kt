@@ -62,6 +62,7 @@ val product=differ.currentList[position]
                     tvAdName.text=product.name
                     tvAdPrice.text=product.price.toString()
 
+
                 }
             }
 

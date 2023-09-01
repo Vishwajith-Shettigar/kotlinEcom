@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ecomapp.Adapters.Bestdealsadapter
+import com.example.ecomapp.Adapters.Bestproductadapter
 import com.example.ecomapp.Adapters.Specialproductadapter
 import com.example.ecomapp.Util.Resource
 import com.example.ecomapp.Viewmodel.MainCategoryviewmodel
@@ -19,7 +22,10 @@ import kotlinx.coroutines.flow.collectLatest
 class Maincategory: Fragment() {
 
     lateinit var binding:FragmentMaincategoryBinding
+
     private lateinit var  specialproductadapter:Specialproductadapter
+    private  lateinit var bestdealsadapter: Bestdealsadapter
+    private  lateinit var bestproductadapter: Bestproductadapter
 
 private val viewmodel by viewModels<MainCategoryviewmodel>()
 
@@ -37,8 +43,15 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
         super.onViewCreated(view, savedInstanceState)
 
 
-        setUprecyclerview()
+
+        viewmodel.fetchbestproducts()
       viewmodel.fetchSpecialProducts()
+        viewmodel.fetchBestdealsproducts()
+        setUpbestdealrecyclerview()
+        setUprecyclerview()
+        setUpbestproductrecyclerview()
+
+
 
         lifecycleScope.launchWhenStarted {
 
@@ -59,6 +72,72 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
                     }
                 }
             }
+        }
+
+        lifecycleScope.launchWhenStarted {
+
+            viewmodel.bestdealproducts.collectLatest {
+                when(it){
+                    is Resource.Loading -> showLoading()
+                    is Resource.Success->{
+                        bestdealsadapter.differ.submitList(it.data)
+                        hideLoading()
+                    }
+                    is Resource.Error->{
+
+                        hideLoading()
+                    }
+
+                    else -> {
+                        Unit
+                    }
+                }
+            }
+        }
+
+
+
+        lifecycleScope.launchWhenStarted {
+
+            viewmodel.bestproducts.collectLatest {
+                when(it){
+                    is Resource.Loading -> showLoading()
+                    is Resource.Success->{
+                        bestproductadapter.differ.submitList(it.data)
+                        hideLoading()
+                    }
+                    is Resource.Error->{
+
+                        hideLoading()
+                    }
+
+                    else -> {
+                        Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setUpbestproductrecyclerview() {
+        bestproductadapter=Bestproductadapter()
+        binding.bestproductsrv.apply {
+            layoutManager=GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
+
+            adapter=bestproductadapter
+
+
+        }
+    }
+
+    private fun setUpbestdealrecyclerview() {
+        bestdealsadapter= Bestdealsadapter()
+        binding.bestdealsproductsrv.apply {
+            layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
+            adapter=bestdealsadapter
+
+
         }
     }
 
