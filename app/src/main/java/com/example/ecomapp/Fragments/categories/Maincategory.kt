@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -101,14 +102,17 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
 
             viewmodel.bestproducts.collectLatest {
                 when(it){
-                    is Resource.Loading -> showLoading()
+                    is Resource.Loading -> {
+                        binding.paginationloadprogressbar.visibility=View.VISIBLE
+                    }
                     is Resource.Success->{
                         bestproductadapter.differ.submitList(it.data)
-                        hideLoading()
+                        binding.paginationloadprogressbar.visibility=View.GONE
                     }
                     is Resource.Error->{
 
                         hideLoading()
+                        binding.paginationloadprogressbar.visibility=View.GONE
                     }
 
                     else -> {
@@ -117,6 +121,13 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
                 }
             }
         }
+
+        binding.nestedscrollview.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener{v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+            if(v.getChildAt(0).bottom<=v.height+scrollY){
+                viewmodel.fetchbestproducts()
+            }
+        })
     }
 
     private fun setUpbestproductrecyclerview() {

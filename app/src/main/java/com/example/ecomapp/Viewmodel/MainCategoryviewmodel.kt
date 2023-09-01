@@ -1,5 +1,6 @@
 package com.example.ecomapp.Viewmodel
 
+import android.graphics.pdf.PdfDocument.PageInfo
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,10 @@ import javax.inject.Inject
 class MainCategoryviewmodel @Inject constructor(
 
     private  val firestore:FirebaseFirestore
+
 ) :ViewModel() {
 
+    private val paginginfo= Paginginfo()
 
     private val _speicalproducts= MutableStateFlow<com.example.ecomapp.Util.Resource<List<Product>>>(Resource.Notspecified())
 
@@ -95,30 +98,50 @@ Log.e("#",specialproducstlist.get(0).name)
 
 
     fun  fetchbestproducts(){
-        viewModelScope.launch {
+        if(!paginginfo.isPagingend) { // if allproducts all fetched so not more to fetch just to
+            // make fire base query read more efficient
+            viewModelScope.launch {
 
-            _bestproduct.emit(Resource.Loading())
+                _bestproduct.emit(Resource.Loading())
+            }
+
+            firestore.collection("Products")
+                .limit(paginginfo.page * 10).get().addOnSuccessListener { result ->
+                    var specialproducstlist = result.toObjects(Product::class.java)
+                    paginginfo.isPagingend = specialproducstlist == paginginfo.oldpagesproducts
+                    paginginfo.oldpagesproducts = specialproducstlist
+
+                    Log.e("#", specialproducstlist.get(0).name)
+
+
+                    viewModelScope.launch {
+
+                        _bestproduct.emit(Resource.Success(specialproducstlist))
+                    }
+                    paginginfo.page++
+                }
+
+                .addOnFailureListener {
+
+                    viewModelScope.launch {
+
+                        _bestproduct.emit(Resource.Error(it.message.toString()))
+                    }
+                }
+        }
+        else{
+            Unit
         }
 
-        firestore.collection("Products")
-            .get().addOnSuccessListener {result->
-                var specialproducstlist=result.toObjects(Product::class.java)
-                Log.e("#",specialproducstlist.get(0).name)
+    }
+    internal data class Paginginfo(
+        public  var page:Long=1,
+        public  var oldpagesproducts:List<Product> = emptyList(),
 
+        var isPagingend:Boolean=false
 
-                viewModelScope.launch {
+    ){
 
-                    _bestproduct.emit(Resource.Success(specialproducstlist))
-                }
-            }
-
-            .addOnFailureListener{
-
-                viewModelScope.launch {
-
-                    _bestproduct.emit(Resource.Error(it.message.toString()))
-                }
-            }
     }
 }
 
