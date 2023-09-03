@@ -37,10 +37,13 @@ class Bestproductadapter : RecyclerView.Adapter<Bestproductadapter.Bestdealsview
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
                 tvName.text=product.name
                 tvPrice.text="$"+product.price.toString()
-                tvNewPrice.text="$"+(product.price-(product.offerPercentage?.times(100)!!)).toString()
 if(product.offerPercentage==null){
     tvNewPrice.visibility=android.view.View.INVISIBLE
 }
+else{
+                    tvNewPrice?.text="$"+(product.price-(product.offerPercentage?.times(100)!!)).toString()
+
+                }
 
             }
         }

@@ -49,7 +49,6 @@ class MainCategoryviewmodel @Inject constructor(
        firestore.collection("Products").whereEqualTo("category","special product")
            .get().addOnSuccessListener {result->
  var specialproducstlist=result.toObjects(Product::class.java)
-Log.e("#",specialproducstlist.get(0).name)
 
 
                viewModelScope.launch {
@@ -77,7 +76,6 @@ Log.e("#",specialproducstlist.get(0).name)
         firestore.collection("Products").whereEqualTo("category","best deal product")
             .get().addOnSuccessListener {result->
                 var specialproducstlist=result.toObjects(Product::class.java)
-                Log.e("#",specialproducstlist.get(0).name)
 
 
                 viewModelScope.launch {
@@ -111,7 +109,6 @@ Log.e("#",specialproducstlist.get(0).name)
                     paginginfo.isPagingend = specialproducstlist == paginginfo.oldpagesproducts
                     paginginfo.oldpagesproducts = specialproducstlist
 
-                    Log.e("#", specialproducstlist.get(0).name)
 
 
                     viewModelScope.launch {
