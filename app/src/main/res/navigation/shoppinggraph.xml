@@ -10,7 +10,11 @@
         android:name="com.example.ecomapp.Fragments.shopping.Home_fragment"
         android:label="Home_fragment"
         tools:layout="@layout/fragment_home"
-        />
+        >
+        <action
+            android:id="@+id/action_home_fragment_to_productDetails_fragment"
+            app:destination="@id/productDetails_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/search_fragment"
         android:name="com.example.ecomapp.Fragments.shopping.Search_fragment"
@@ -29,4 +33,14 @@
         android:label="Profile_fragment"
         tools:layout="@layout/fragment_profile"
         />
+    <fragment
+        android:id="@+id/productDetails_fragment"
+        android:name="com.example.ecomapp.Fragments.shopping.ProductDetails_fragment"
+        android:label="ProductDetails_fragment"
+        tools:layout="@layout/fragment_product_details"
+        >
+        <argument
+            android:name="product"
+            app:argType="com.example.ecomapp.Data.Product" />
+    </fragment>
 </navigation>

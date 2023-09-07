@@ -8,12 +8,15 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecomapp.Adapters.Bestdealsadapter
 import com.example.ecomapp.Adapters.Bestproductadapter
 import com.example.ecomapp.Adapters.Specialproductadapter
+import com.example.ecomapp.R
 import com.example.ecomapp.Util.Resource
+import com.example.ecomapp.Util.showBottomnavigation
 import com.example.ecomapp.Viewmodel.MainCategoryviewmodel
 import com.example.ecomapp.databinding.FragmentMaincategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +28,7 @@ class Maincategory: Fragment() {
     lateinit var binding:FragmentMaincategoryBinding
 
     private lateinit var  specialproductadapter:Specialproductadapter
+
     private  lateinit var bestdealsadapter: Bestdealsadapter
     private  lateinit var bestproductadapter: Bestproductadapter
 
@@ -53,7 +57,29 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
         setUpbestproductrecyclerview()
 
 
+        specialproductadapter.onClick={
 
+                val b=Bundle().apply { putParcelable("product",it) }
+                findNavController().navigate(R.id.action_home_fragment_to_productDetails_fragment,b)
+
+
+        }
+
+        bestdealsadapter.onClick={
+
+            val b=Bundle().apply { putParcelable("product",it) }
+            findNavController().navigate(R.id.action_home_fragment_to_productDetails_fragment,b)
+
+
+        }
+
+        bestproductadapter.onClick={
+
+            val b=Bundle().apply { putParcelable("product",it) }
+            findNavController().navigate(R.id.action_home_fragment_to_productDetails_fragment,b)
+
+
+        }
         lifecycleScope.launchWhenStarted {
 
             viewmodel.specialproduts.collectLatest {
@@ -170,6 +196,11 @@ private val viewmodel by viewModels<MainCategoryviewmodel>()
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomnavigation()
     }
 
 }

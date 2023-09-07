@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecomapp.Adapters.Bestproductadapter
+import com.example.ecomapp.R
+import com.example.ecomapp.Util.showBottomnavigation
 import com.example.ecomapp.databinding.FragmentBasecategoryBinding
 
 open class Basecategory:Fragment() {
@@ -35,6 +38,22 @@ open class Basecategory:Fragment() {
 
         setUptoprecyclerview()
         setUpbottomrecyclerview()
+
+        topadapter.onClick={
+
+            val b=Bundle().apply { putParcelable("product",it) }
+            findNavController().navigate(R.id.action_home_fragment_to_productDetails_fragment,b)
+
+
+        }
+
+        bottomadapter.onClick={
+
+            val b=Bundle().apply { putParcelable("product",it) }
+            findNavController().navigate(R.id.action_home_fragment_to_productDetails_fragment,b)
+
+
+        }
 
         binding.basecategorytoprv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -100,6 +119,12 @@ binding.basevatepv.visibility=View.VISIBLE
 
             adapter = topadapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        showBottomnavigation()
     }
 
 }
