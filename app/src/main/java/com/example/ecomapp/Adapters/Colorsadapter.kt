@@ -79,6 +79,6 @@ if(colorPicked>=0){
         }
 
     }
-    val onItemClick:((Int)->Unit)?=null
+    var onItemClick:((Int)->Unit)?=null
 
 }

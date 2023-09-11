@@ -77,6 +77,6 @@ class Sizeadapter: RecyclerView.Adapter<Sizeadapter.Sizeviewholder>() {
 
 
     }
-    val onItemClick:((String)->Unit)?=null
+    var onItemClick:((String)->Unit)?=null
 
 }

@@ -173,7 +173,7 @@ app:layout_constraintStart_toStartOf="@id/devider"
 
         </LinearLayout>
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/loginbtn"
+            android:id="@+id/addtocart"
             android:layout_width="0dp"
             android:layout_height="60dp"
             app:layout_constraintEnd_toEndOf="@id/productpreferences"
