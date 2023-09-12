@@ -26,7 +26,11 @@
         android:name="com.example.ecomapp.Fragments.shopping.Cart_fragment"
         android:label="Cart_fragment"
         tools:layout="@layout/fragment_cart"
-        />
+        >
+        <action
+            android:id="@+id/action_cart_fragment_to_productDetails_fragment"
+            app:destination="@id/productDetails_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/profile_fragment"
         android:name="com.example.ecomapp.Fragments.shopping.Profile_fragment"

@@ -4,7 +4,7 @@ data class Cartproduct(
     val product:Product,
     var quantity:Int,
     val selectedColor:Int?=null,
-    val selected:String?=null
+    val selectedsize:String?=null
 )
 {
 
