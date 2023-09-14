@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shoppinggraph"
-    app:startDestination="@id/address_fragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_cart_fragment_to_productDetails_fragment"
             app:destination="@id/productDetails_fragment" />
+        <action
+            android:id="@+id/action_cart_fragment_to_billing_fragment"
+            app:destination="@id/billing_fragment" />
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
@@ -56,4 +59,19 @@
         android:name="com.example.ecomapp.Fragments.shopping.Address_fragment"
         android:label="Address_fragment"
         tools:layout="@layout/fargment_address"/>
+    <fragment
+        android:id="@+id/billing_fragment"
+        android:name="com.example.ecomapp.Fragments.shopping.Billing_fragment"
+        android:label="Billing_fragment"
+        tools:layout="@layout/fragment_billing">
+        <action
+            android:id="@+id/action_billing_fragment_to_address_fragment"
+            app:destination="@id/address_fragment" />
+        <argument
+            android:name="Price"
+            app:argType="float" />
+        <argument
+            android:name="Products"
+            app:argType="com.example.ecomapp.Data.Cartproduct[]" />
+    </fragment>
 </navigation>

@@ -42,12 +42,24 @@ class Cart_fragment : Fragment(R.layout.fragment_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpcartrv()
+        var totalprice=0f
         lifecycleScope.launchWhenStarted {
             viewModel.pricefinal.collectLatest {
                 if (it != null) {
+                    totalprice= it as Float
                     binding.tvTotalPrice.text = "$" + it.toString()
                 }
             }
+        }
+
+
+
+        binding.buttonCheckout.setOnClickListener{
+
+val action=Cart_fragmentDirections.actionCartFragmentToBillingFragment(totalprice,cartadapter.differ.currentList.toTypedArray())
+            findNavController().navigate(action)
+//            findNavController().navigate(R.id.action_cart_fragment_to_billing_fragment)
+
         }
 
         cartadapter.onProductClick = {
