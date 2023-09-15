@@ -1,5 +1,6 @@
 package com.example.ecomapp.Fragments.shopping
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.ecomapp.Adapters.Addressadapter
 import com.example.ecomapp.Adapters.Billingproductadapter
+import com.example.ecomapp.Data.Address
 import com.example.ecomapp.Data.Cartproduct
+import com.example.ecomapp.Data.order.Order
+import com.example.ecomapp.Data.order.Orderstatus
 import com.example.ecomapp.R
 import com.example.ecomapp.Util.Horizontalitemdecoration
 import com.example.ecomapp.Util.Resource
 import com.example.ecomapp.Viewmodel.Billingviewmodel
+import com.example.ecomapp.Viewmodel.Orderviewmodel
 import com.example.ecomapp.databinding.FragmentBillingBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -33,12 +39,13 @@ class Billing_fragment: Fragment() {
         Billingproductadapter()
     }
 
-    private  val viewmodel by viewModels<Billingviewmodel>()
-
+    private  val billingviewmodel by viewModels<Billingviewmodel>()
+    private  val orderviewmodel by viewModels<Orderviewmodel>()
 
     private val args by navArgs<Billing_fragmentArgs>()
     private var products=emptyList<Cartproduct>()
     private var totalprice=0f
+    private var selectedaddress:Address?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +74,7 @@ class Billing_fragment: Fragment() {
         }
 
         lifecycleScope.launchWhenStarted {
-            viewmodel.address.collectLatest {
+            billingviewmodel.address.collectLatest {
                 when(it){
 
                     is Resource.Loading->{
@@ -86,8 +93,75 @@ class Billing_fragment: Fragment() {
             }
         }
 
+        lifecycleScope.launchWhenStarted {
+            orderviewmodel.order.collectLatest {
+                when(it){
+
+                    is Resource.Loading->{
+                        binding.buttonPlaceOrder.startAnimation()
+                    }
+                    is Resource.Success->{
+                        Snackbar.make(requireView(),"Order placed",Snackbar.LENGTH_SHORT)
+                            .show()
+                        binding.buttonPlaceOrder.revertAnimation()
+                        findNavController().navigateUp()
+                    }
+                    is Resource.Error->{
+
+                        binding.buttonPlaceOrder.revertAnimation()
+                    }
+                    else->Unit
+                }
+            }
+        }
+
         billingproductadapter.difffer.submitList(products)
         binding.tvTotalPrice.text=totalprice.toString()
+
+        addressadapter.onclick={
+            selectedaddress=it
+
+        }
+
+        binding.buttonPlaceOrder.setOnClickListener{
+            if(selectedaddress==null){
+                Snackbar.make(requireView(),"Please select address",Snackbar.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+
+            }else{
+                showOrderconfirmationdialog()
+            }
+        }
+    }
+
+    private fun showOrderconfirmationdialog() {
+        val alertdialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Order items")
+            setMessage("Place order ?")
+            setNegativeButton("Cancel")
+            { dialog, _ ->
+                dialog.dismiss()
+
+            }
+            setPositiveButton("Yes")
+            {dialog,_->
+
+                val order=Order(
+                    Orderstatus.Ordered.status,
+                    totalprice,
+                    products,
+                    selectedaddress!!
+                )
+                orderviewmodel.placeOrder(order)
+                dialog.dismiss()
+
+
+
+            }
+        }
+        alertdialog.create()
+        alertdialog.show()
     }
 
     private fun setUpAddressRV() {
