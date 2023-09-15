@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shoppinggraph"
-    app:startDestination="@id/home_fragment">
+    app:startDestination="@id/useraccount_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -74,4 +74,9 @@
             android:name="Products"
             app:argType="com.example.ecomapp.Data.Cartproduct[]" />
     </fragment>
+    <fragment
+        android:id="@+id/useraccount_fragment"
+        android:name="com.example.ecomapp.Fragments.settings.Useraccount_fragment"
+        android:label="Useraccount_fragment"
+        tools:layout="@layout/fragment_user_account"/>
 </navigation>
