@@ -83,5 +83,18 @@
         android:id="@+id/order_fragment"
         android:name="com.example.ecomapp.Fragments.settings.Allorder_fragment"
         android:label="Order_fragment"
-        tools:layout="@layout/fragment_allorders"/>
+        tools:layout="@layout/fragment_allorders">
+        <action
+            android:id="@+id/action_order_fragment_to_orderdetails_fragment"
+            app:destination="@id/orderdetails_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderdetails_fragment"
+        android:name="com.example.ecomapp.Fragments.settings.Orderdetails_fragment"
+        android:label="Orderdetails_fragment"
+        tools:layout="@layout/fragment_order_detail">
+        <argument
+            android:name="order"
+            app:argType="com.example.ecomapp.Data.order.Order" />
+    </fragment>
 </navigation>

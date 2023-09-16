@@ -83,9 +83,13 @@ class Allordersadapter:Adapter<Allordersadapter.Ordersviewholder>() {
 
           holder.bind(differ.currentList.get(position))
 
+    holder.itemView.setOnClickListener{
+      onClick?.invoke(differ.currentList.get(position))
+    }
+
   }
 
-  val onClick:((Order)->Unit)?=null
+  var onClick:((Order)->Unit)?=null
 
 
 }
