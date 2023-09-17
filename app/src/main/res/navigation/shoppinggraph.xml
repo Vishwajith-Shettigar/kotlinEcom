@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shoppinggraph"
-    app:startDestination="@id/order_fragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -41,8 +41,14 @@
         tools:layout="@layout/fragment_profile"
         >
         <action
-            android:id="@+id/action_profile_fragment_to_address_fragment3"
-            app:destination="@id/address_fragment" />
+            android:id="@+id/action_profile_fragment_to_billing_fragment"
+            app:destination="@id/billing_fragment" />
+        <action
+            android:id="@+id/action_profile_fragment_to_useraccount_fragment"
+            app:destination="@id/useraccount_fragment" />
+        <action
+            android:id="@+id/action_profile_fragment_to_order_fragment"
+            app:destination="@id/order_fragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetails_fragment"
