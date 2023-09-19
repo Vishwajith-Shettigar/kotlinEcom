@@ -2,6 +2,7 @@ package com.example.ecomapp.Fragments.shopping
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,7 @@ class Cart_fragment : Fragment(R.layout.fragment_cart) {
         lifecycleScope.launchWhenStarted {
             viewModel.pricefinal.collectLatest {
                 if (it != null) {
+                    Log.e("#",it.toString())
                     totalprice= it as Float
                     binding.tvTotalPrice.text = "$" + it.toString()
                 }
@@ -56,7 +58,7 @@ class Cart_fragment : Fragment(R.layout.fragment_cart) {
 
         binding.buttonCheckout.setOnClickListener{
 
-val action=Cart_fragmentDirections.actionCartFragmentToBillingFragment(totalprice,cartadapter.differ.currentList.toTypedArray())
+val action=Cart_fragmentDirections.actionCartFragmentToBillingFragment(totalprice,cartadapter.differ.currentList.toTypedArray(),true)
             findNavController().navigate(action)
 //            findNavController().navigate(R.id.action_cart_fragment_to_billing_fragment)
 

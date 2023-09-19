@@ -87,6 +87,7 @@ binding.progressbarSettings.visibility=View.VISIBLE
             val b = Bundle().apply{
                 putFloat("Price", 0f)
                 putParcelableArray("Products", emptyArray())
+                putBoolean("Payment",false)
             }
             findNavController().navigate(R.id.action_profile_fragment_to_billing_fragment,b)
 

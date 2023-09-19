@@ -64,7 +64,13 @@
         android:id="@+id/address_fragment"
         android:name="com.example.ecomapp.Fragments.shopping.Address_fragment"
         android:label="Address_fragment"
-        tools:layout="@layout/fargment_address"/>
+        tools:layout="@layout/fargment_address">
+        <argument
+            android:name="Address"
+            app:argType="com.example.ecomapp.Data.Address"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/billing_fragment"
         android:name="com.example.ecomapp.Fragments.shopping.Billing_fragment"
@@ -79,6 +85,9 @@
         <argument
             android:name="Products"
             app:argType="com.example.ecomapp.Data.Cartproduct[]" />
+        <argument
+            android:name="Payment"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/useraccount_fragment"

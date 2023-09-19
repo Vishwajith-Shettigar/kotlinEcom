@@ -33,7 +33,7 @@ class Cartviewmodel @Inject constructor(
 
                 calculatetotalprice(it.data!!)
             }
-            else -> Unit
+            else -> 0f
         }
     }
 
@@ -46,7 +46,7 @@ fun deleteCartproduct(cartproduct: Cartproduct){
     val index=cartproducts.value.data?.indexOf(cartproduct)
     if (index != null && index != -1) {
         val docid = cartproductdocument.get(index).id
-            firebaseFirestore.collection(user_collection)
+        firebaseFirestore.collection(user_collection)
         .document(firebaseAuth.uid!!)
         .collection("cart")
                 .document(docid)

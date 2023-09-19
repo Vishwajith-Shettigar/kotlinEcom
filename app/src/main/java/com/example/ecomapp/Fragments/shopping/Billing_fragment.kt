@@ -47,10 +47,12 @@ class Billing_fragment: Fragment() {
     private var totalprice=0f
     private var selectedaddress:Address?=null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         products=args.products.toList()
         totalprice=args.price
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +70,16 @@ class Billing_fragment: Fragment() {
         setBillingproductRv()
         setUpAddressRV()
 
+
+
+        if(!args.payment){
+            binding.apply {
+                buttonPlaceOrder.visibility=View.INVISIBLE
+                totalBoxContainer.visibility=View.INVISIBLE
+                middleLine.visibility=View.INVISIBLE
+                bottomLine.visibility=View.INVISIBLE
+            }
+        }
 
         binding.imageAddAddress.setOnClickListener{
             findNavController().navigate(R.id.action_billing_fragment_to_address_fragment)
@@ -120,6 +132,13 @@ class Billing_fragment: Fragment() {
 
         addressadapter.onclick={
             selectedaddress=it
+            if(!args.payment) {
+                val b = Bundle().apply {
+                    putParcelable("Address", selectedaddress)
+                }
+                findNavController().navigate(R.id.action_billing_fragment_to_address_fragment, b)
+            }
+
 
         }
 
