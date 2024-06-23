@@ -52,11 +52,6 @@ fun deleteCartproduct(cartproduct: Cartproduct){
                 .document(docid)
                 .delete()
     }
-
-
-
-
-
 }
 
     private fun calculatetotalprice(data: List<Cartproduct>): Float {
@@ -140,13 +135,9 @@ fun deleteCartproduct(cartproduct: Cartproduct){
 
                 viewModelScope.launch {
                     _cartproduct.emit(Resource.Error(exception?.message.toString()))
-
                 }
             }
-
         }
-
-
     }
 
     private fun inscreaseQuantity(docid: String) {
