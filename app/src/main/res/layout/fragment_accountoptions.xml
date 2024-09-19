@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/blury_background"
         android:scaleType="centerCrop"
+        android:src="@drawable/blury_background"
 
         />
 
@@ -24,14 +25,14 @@
 
             android:layout_height="wrap_content"
 
+            android:layout_marginTop="120dp"
             android:drawableStart="@drawable/ic_kleine_shape"
             android:drawablePadding="6dp"
-            android:text="Kleine"
+            android:text="Lyka Ecom"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="120dp"
+            app:layout_constraintTop_toTopOf="parent"
 
             />
 
@@ -46,24 +47,24 @@
             android:text=" The Right Address \n for  Shopping \n Any Day"
             android:textAlignment="center"
             android:textSize="@dimen/h2TextSize"
-            app:layout_constraintTop_toBottomOf="@+id/appname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appname" />
+
         <TextView
             android:id="@+id/secondtxt"
             style="@style/h2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:gravity="center"
-
             android:text="@string/secondtexttext"
             android:textAlignment="center"
+
             android:textSize="@dimen/h2TextSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toBottomOf="@id/firsttextview"
 
@@ -74,28 +75,28 @@
             android:id="@+id/regisbtn"
             android:layout_width="200dp"
             android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btnback"
+            android:text="Register"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Register"
-            android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@id/secondtxt"
-            android:background="@drawable/btnback"
-            android:textColor="@color/white"
 
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginbtn"
+            style="@style/whiteButtonStyle"
             android:layout_width="200dp"
             android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/g_line"
+            android:elevation="10dp"
+            android:text="Login"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Login"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/regisbtn"
-            android:background="@color/g_line"
-            android:textColor="@color/black"
-            android:elevation="10dp"
-            style="@style/whiteButtonStyle"
-            />
+            app:layout_constraintTop_toBottomOf="@id/regisbtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

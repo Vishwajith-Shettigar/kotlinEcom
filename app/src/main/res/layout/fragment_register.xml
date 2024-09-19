@@ -25,7 +25,7 @@
 
             android:drawableStart="@drawable/ic_kleine_shape"
             android:drawablePadding="6dp"
-            android:text="Kleine"
+            android:text="Lyka Ecom"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@id/rightguildline"
@@ -135,7 +135,7 @@
 
 
 
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/regbtn"
             android:layout_width="0dp"
             android:layout_height="50dp"

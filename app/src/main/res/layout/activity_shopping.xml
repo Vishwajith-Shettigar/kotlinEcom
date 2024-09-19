@@ -8,35 +8,32 @@
 
     <fragment
 
-
         android:id="@+id/shopinghostfragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/shoppinggraph"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomnavigation"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/shoppinggraph" />
 
-    
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
-       android:id="@+id/bottomnavigation"
+        android:id="@+id/bottomnavigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
 
-        app:menu="@menu/bottom_navigation_menus"
-
-        app:labelVisibilityMode="unlabeled"
-        android:elevation="0dp"
         android:background="@drawable/bottom_navigation_background"
-        app:itemRippleColor="@color/g_white"
+
+        android:elevation="0dp"
         app:itemIconTint="@drawable/bottom_nav_item_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:itemRippleColor="@color/g_white"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menus" />
 </androidx.constraintlayout.widget.ConstraintLayout>

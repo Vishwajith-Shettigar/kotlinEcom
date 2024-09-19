@@ -7,7 +7,6 @@ plugins {
     id 'com.google.gms.google-services'
 
 
-
 }
 plugins {
 
@@ -41,7 +40,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
 
     }
@@ -61,7 +60,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 
-    apply plugin :"kotlin-kapt"
+    apply plugin: "kotlin-kapt"
 
     //Navigation component
     def nav_version = "2.5.2"
@@ -69,7 +68,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //loading button
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
@@ -77,11 +76,8 @@ dependencies {
     //circular image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    //viewpager2 indicatior
-    implementation 'io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1'
 
-    //stepView
-    implementation 'com.shuhart.stepview:stepview:1.5.1'
+    
 
     //Android Ktx
 
@@ -96,6 +92,8 @@ dependencies {
 //    Coroutines with firebase
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1'
+
+    implementation 'com.github.shuhart:stepview:1.5.1'
 }
 kapt {
     correctErrorTypes = true

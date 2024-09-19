@@ -48,7 +48,7 @@
             android:textSize="12sp"
             android:fontFamily="@font/sf_pro_display"/>
 
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_add_to_cart"
             android:layout_width="77dp"
             android:layout_height="25dp"

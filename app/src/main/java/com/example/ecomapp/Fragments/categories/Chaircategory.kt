@@ -69,7 +69,6 @@ showBottomloading()
 
                     is com.example.ecomapp.Util.Resource.Success->{
                         Log.e("#"," chair cate bottom frage")
-                        it.data?.get(0)?.let { it1 -> Log.e("#", "loll   "+it1.name) }
 
                         bottomadapter.differ.submitList(it.data)
                         hideBottomloading()
